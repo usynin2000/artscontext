@@ -1,6 +1,8 @@
 from django.db import models
 
+
 # Create your models here.
+
 
 class News(models.Model):
     title = models.CharField(max_length=120)
@@ -9,9 +11,15 @@ class News(models.Model):
 
     ### добавить images и еще что-то
 
+    def __str__(self):
+        return str(self.title)
+
     class Meta:
         verbose_name_plural = 'Новости'
         verbose_name = 'Новость'
+
+
+
 
 
 class Review(models.Model):
