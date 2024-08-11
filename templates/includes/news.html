@@ -5,12 +5,17 @@
     <figure>
         <a href=""><img class="w-full" src="{{ news.image.url }}"></a>
     </figure>
-    <div class="p-4 pb-2">
-        <p class="md:text-xl mb-5 px-2 font2 text-md">{{ news.description }}</p>
+    <div class="p-4 pb-1">
+        <p class="md:text-xl mb-1 px-2 font2 text-md">{{ news.description }}</p>
+        {% if tags %}
         <div class="flex items-center gap-2 text-sm mb-5 flex-wrap">
-            <a href="" class="bg-gray-200 rounded-full px-3 py-1 hover:bg-gray-800 hover:text-white">Animals</a>
-            <a href="" class="bg-gray-200 rounded-full px-3 py-1 hover:bg-gray-800 hover:text-white">Black &
-                White</a>
+                {% for tag in tags %}
+                <a href="" class="bg-gray-200 rounded-full px-3 py-1 hover:bg-gray-800 hover:text-white">tag</a>
+                <a href="" class="bg-gray-200 rounded-full px-3 py-1 hover:bg-gray-800 hover:text-white">Black &
+                    White</a>
+                {% endfor %}
+
         </div>
+        {% endif %}
     </div>
 </article>
