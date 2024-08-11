@@ -141,3 +141,4 @@ public_key
 /dumpdata
 
 key.json
+.DS_Store
