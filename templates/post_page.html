@@ -2,37 +2,35 @@
 {% include 'includes/header.html' %}
 
 <div class="flex flex-col items-center p-2 bg-gray-100 min-h-screen">
-  <!-- Article Section -->
-  <article class="md:w-1/2 w-full bg-white shadow-lg rounded-lg overflow-hidden mb-4">
-    <div class="flex items-center justify-center px-4 h-14 bg-gray-50">
-      <h3 class="md:text-lg text-sm text-center font-bold">{{ post.title }}</h3>
-    </div>
-    <figure>
-      <a href="#"><img class="w-full" src="{{ post.image.url }}" alt="{{ post.title }}"></a>
-    </figure>
-    <div class="p-4 pb-2">
-      <p class="md:text-xl text-md mb-10 px-4 font1">{{ post.description }}</p>
-    </div>
-  </article>
+    <article class="md:w-1/2 w-full bg-white shadow-lg rounded-lg overflow-hidden mb-4">
+        <div class="flex items-center justify-center px-4 h-14 bg-gray-50">
+            <h3 class="md:text-lg text-sm text-center font-bold">{{ post.title }}</h3>
+        </div>
+        <figure>
+            <a href="#"><img class="w-full" src="{{ post.image.url }}" alt="{{ post.title }}"></a>
+        </figure>
+        <div class="p-4 pb-2">
+            <p class="md:text-xl text-md mb-10 px-4 font1">{{ post.description }}</p>
+        </div>
+    </article>
 
-  <!-- Content Section: Visible only on mobile devices -->
-  <div x-data="{ mobileSidebarOpen: false }" class="md:hidden w-full">
-    <div class="flex justify-center mb-6 z-10 relative">
-      <a
-        @click="mobileSidebarOpen = !mobileSidebarOpen"
-        class="flex items-center cursor-pointer select-none font-bold hover:bg-gray-200 rounded-lg p-3"
-      >
-        <span>Наши социальные сети</span>
-        <img
-          x-bind:class="mobileSidebarOpen && 'rotate-180 duration-300'"
-          class="w-4 ml-1.5"
-          src="https://img.icons8.com/small/32/000000/expand-arrow.png"
-          alt="Expand Arrow"
-        />
-      </a>
+    <div x-data="{ mobileSidebarOpen: false }" class="md:hidden w-full">
+        <div class="flex justify-center mb-6 z-10 relative">
+            <a
+                    @click="mobileSidebarOpen = !mobileSidebarOpen"
+                    class="flex items-center cursor-pointer select-none font-bold hover:bg-gray-200 rounded-lg p-3"
+            >
+                <span>Наши социальные сети</span>
+                <img
+                        x-bind:class="mobileSidebarOpen && 'rotate-180 duration-300'"
+                        class="w-4 ml-1.5"
+                        src="https://img.icons8.com/small/32/000000/expand-arrow.png"
+                        alt="Expand Arrow"
+                />
+            </a>
+        </div>
+        <div class="bg-white shadow-lg rounded-lg p-4">
+            {% include 'includes/sidebar.html' %}
+        </div>
     </div>
-    <div class="bg-white shadow-lg rounded-lg p-4">
-      {% include 'includes/sidebar.html' %}
-    </div>
-  </div>
 </div>

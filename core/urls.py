@@ -19,12 +19,13 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 
-from posts.views import home_view, post_page_view
+from posts.views import home_view, post_page_view, carousel_view
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", home_view, name="home"),
-    path("post/<pk>/", post_page_view, name="post-page")
+    path("post/<pk>/", post_page_view, name="post-page"),
+    path("carousel/", carousel_view, name="carousel")
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
