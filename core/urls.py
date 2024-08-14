@@ -24,7 +24,7 @@ from posts.views import home_view, post_page_view, carousel_view
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", home_view, name="home"),
-    path("post/<pk>/", post_page_view, name="post-page"),
+    path("post/<slug>/", post_page_view, name="post-page"),
     path("carousel/", carousel_view, name="carousel")
 ]
 

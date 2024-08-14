@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.text import slugify
 
 
 # Create your models here.
@@ -7,6 +8,7 @@ from django.db import models
 class News(models.Model):
     title = models.CharField(max_length=120)
     description = models.TextField()
+    slug = models.SlugField(blank=True, max_length=130)
     image = models.ImageField(upload_to="images/", null=True, blank=True)
 
     ### добавить images и еще что-то
@@ -19,16 +21,26 @@ class News(models.Model):
         verbose_name = 'Новость'
 
 
-
-
-
 class Review(models.Model):
     title = models.CharField(max_length=120)
     description = models.TextField()
+    slug = models.SlugField(blank=True, max_length=130)
     artist = models.ForeignKey("Artist", on_delete=models.CASCADE)
     image = models.ImageField(upload_to="images/", null=True, blank=True)
 
     # добавить images(желательно несколкьо) тип картины Барокко и тд, год создания можно, и еще какие-либо данные
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            # Генерируем slug из title
+            self.slug = slugify(self.title)
+            # Проверяем уникальность slug и, если нужно, добавляем число
+            original_slug = self.slug
+            counter = 1
+            while Review.objects.filter(slug=self.slug).exists():
+                self.slug = f"{original_slug}-{counter}"
+                counter += 1
+        super().save(*args, **kwargs)
 
     class Meta:
         verbose_name_plural = 'Обзоры картин'

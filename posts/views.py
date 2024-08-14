@@ -11,8 +11,8 @@ def home_view(request):
     return render(request, "index.html", context={"news_list": news_list})
 
 
-def post_page_view(request, pk):
-    post = get_object_or_404(News, id=pk)
+def post_page_view(request, slug):
+    post = get_object_or_404(News, slug=slug)
     context = {"post": post}
     return render(request, "post_page.html", context)
 
