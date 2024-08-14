@@ -1,20 +1,119 @@
-{% include 'includes/head.html' %}
-{% include 'includes/header.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram-style Post Carousel</title>
+    <!-- Подключение Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Подключение Swiper.js для карусели -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
+    <style>
+        .swiper-button-next, .swiper-button-prev {
+            color: white;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 50%;
+            display: none; /* Скрыть кнопки по умолчанию */
+        }
 
-<div class="flex flex-col items-center p-2 bg-gray-100 min-h-screen">
-    <article class="md:w-1/2 w-full bg-white shadow-lg rounded-lg overflow-hidden mb-4">
-        <div class="flex items-center justify-center px-4 h-14 bg-gray-50">
-            <h3 class="md:text-lg text-sm text-center font-bold">{{ post.title }}</h3>
-        </div>
-        <figure>
-            <a href="#"><img class="w-full" src="{{ post.image.url }}" alt="{{ post.title }}"></a>
-        </figure>
-        <div class="p-4 pb-2">
-            <p class="md:text-xl text-md mb-10 px-4 font1">{{ post.description }}</p>
+        .swiper-container:hover .swiper-button-next,
+        .swiper-container:hover .swiper-button-prev {
+            display: block; /* Показать кнопки при наведении */
+        }
+
+        .swiper-pagination {
+            bottom: 2px; /* Расположить пагинацию ниже слайдов */
+        }
+
+        .swiper-pagination-bullet {
+            background: white; /* Цвет кружочков */
+            opacity: 0.8;
+        }
+
+        .swiper-pagination-bullet-active {
+            background: rgba(0, 0, 0, 0.8); /* Цвет активного кружочка */
+        }
+
+        .swiper-slide {
+            display: flex;
+            justify-content: center;
+            align-items: center; /* Центрирование по вертикали */
+            width: 100%;
+            height: 100%; /* Слайды занимают высоту контейнера */
+        }
+
+        .image-container {
+            display: flex;
+            align-items: center; /* Центрирование изображений по вертикали */
+            justify-content: center; /* Центрирование изображений по горизонтали */
+            max-height: 500px; /* Максимальная высота контейнера с изображением */
+            width: 100%;
+            overflow: hidden;
+            position: relative; /* Относительное позиционирование для более гибкого контроля */
+        }
+
+        .image {
+            max-width: 100%;
+            object-fit: contain; /* Сохранение пропорций изображения */
+        }
+
+        .caption {
+            padding: 10px;
+            text-align: center;
+            background-color: #fff;
+            width: 100%;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .swiper-container {
+            width: 100%;
+            height: auto;
+            overflow: hidden;
+            position: relative; /* Устанавливаем относительное позиционирование для контейнера */
+        }
+    </style>
+    {% include 'includes/head.html' %}
+
+</head>
+<body>
+{% include 'includes/header.html' %}
+<div class="flex flex-col items-center p-6 bg-gray-100 min-h-screen">
+    <article class="w-full h-full flex justify-center">
+        <div class="w-full max-w-3xl h-full bg-white p-8 shadow-lg rounded-lg">
+            <!-- Swiper -->
+            <div class="swiper-container mb-4">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="image-container">
+                            <img src="https://live.staticflickr.com/65535/49909538937_3255dcf9e7_b.jpg"
+                                 alt="Serene Lake" class="image rounded-lg">
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="image-container">
+                            <img src="{{ post.image_1.url }}" alt="Beautiful Mountain"
+                                 class="image rounded-lg">
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="image-container">
+                            <img src="https://live.staticflickr.com/65535/53642930419_8d48cf95b6_z.jpg"
+                                 alt="Forest Path" class="image rounded-lg">
+                        </div>
+                    </div>
+                </div>
+                <!-- Добавление небольших отступов для пагинации -->
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+            <div class="caption text-lg text-left">
+                <p>Ченнинг Татум продемонстрировал свои художественные таланты ☝️</p>
+            </div>
         </div>
     </article>
-
-    <div x-data="{ mobileSidebarOpen: false }" class="md:hidden w-full">
+    <div x-data="{ mobileSidebarOpen: false }" class="md:hidden w-full bg-white">
         <div class="flex justify-center mb-6 z-10 relative">
             <a
                     @click="mobileSidebarOpen = !mobileSidebarOpen"
@@ -34,3 +133,54 @@
         </div>
     </div>
 </div>
+
+<!-- Подключение Swiper.js -->
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script>
+    // Инициализация Swiper
+    var swiper = new Swiper('.swiper-container', {
+        loop: true,
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        spaceBetween: 0,
+        centeredSlides: false,
+        slidesPerView: 1, // Показывает только один слайд за раз
+        on: {
+            init: function () {
+                adjustSlideHeights();
+            },
+            resize: function () {
+                adjustSlideHeights();
+            },
+        },
+    });
+
+    function adjustSlideHeights() {
+        var slides = document.querySelectorAll('.swiper-slide');
+        var maxHeight = 0;
+
+        // Находим максимальную высоту изображения
+        slides.forEach(function (slide) {
+            var img = slide.querySelector('.image');
+            if (img) {
+                var imgHeight = img.clientHeight;
+                if (imgHeight > maxHeight) {
+                    maxHeight = imgHeight;
+                }
+            }
+        });
+
+        // Устанавливаем высоту всех слайдов в соответствии с максимальной высотой
+        slides.forEach(function (slide) {
+            slide.style.height = maxHeight + 'px';
+        });
+    }
+</script>
+</body>
+</html>

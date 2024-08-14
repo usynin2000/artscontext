@@ -9,7 +9,12 @@ class News(models.Model):
     title = models.CharField(max_length=120)
     description = models.TextField()
     slug = models.SlugField(blank=True, max_length=130)
-    image = models.ImageField(upload_to="images/", null=True, blank=True)
+    image_1 = models.ImageField(upload_to="images/", null=True, blank=True)
+    image_2 = models.ImageField(upload_to="images/", null=True, blank=True)
+    image_3 = models.ImageField(upload_to="images/", null=True, blank=True)
+    image_4 = models.ImageField(upload_to="images/", null=True, blank=True)
+    image_5 = models.ImageField(upload_to="images/", null=True, blank=True)
+    image_6 = models.ImageField(upload_to="images/", null=True, blank=True)
 
     ### добавить images и еще что-то
 
