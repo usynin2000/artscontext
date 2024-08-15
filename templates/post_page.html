@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Instagram-style Post Carousel</title>
+    <title>{{ post.title }}</title>
     <!-- Подключение Tailwind CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <!-- Подключение Swiper.js для карусели -->
@@ -23,7 +23,9 @@
         }
 
         .swiper-pagination {
-            bottom: 2px; /* Расположить пагинацию ниже слайдов */
+            bottom: 10px; /* Расположить пагинацию ниже слайдов */
+            text-align: center; /* Центрирование по горизонтали */
+            z-index: 10; /* Установите высокий z-index, чтобы элемент был видимым поверх слайдов */
         }
 
         .swiper-pagination-bullet {
@@ -78,38 +80,28 @@
 </head>
 <body>
 {% include 'includes/header.html' %}
-<div class="flex flex-col items-center p-6 bg-gray-100 min-h-screen">
+<div class="flex flex-col items-center md:p-6 bg-gray-100 min-h-screen">
     <article class="w-full h-full flex justify-center">
-        <div class="w-full max-w-3xl h-full bg-white p-8 shadow-lg rounded-lg">
+        <div class="w-full md:max-w-3xl h-full bg-white md:p-8 shadow-lg rounded-lg">
             <!-- Swiper -->
-            <div class="swiper-container mb-4">
+            <div class="swiper-container mb-2">
                 <div class="swiper-wrapper">
+                    {% for image in images %}
                     <div class="swiper-slide">
                         <div class="image-container">
-                            <img src="https://live.staticflickr.com/65535/49909538937_3255dcf9e7_b.jpg"
-                                 alt="Serene Lake" class="image rounded-lg">
+                            <img src="{{ image }}"
+                                 alt="photo" class="image rounded-lg">
                         </div>
                     </div>
-                    <div class="swiper-slide">
-                        <div class="image-container">
-                            <img src="{{ post.image_1.url }}" alt="Beautiful Mountain"
-                                 class="image rounded-lg">
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="image-container">
-                            <img src="https://live.staticflickr.com/65535/53642930419_8d48cf95b6_z.jpg"
-                                 alt="Forest Path" class="image rounded-lg">
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
-                <!-- Добавление небольших отступов для пагинации -->
+                <!-- Перенос пагинации за пределы swiper-wrapper -->
                 <div class="swiper-pagination"></div>
                 <div class="swiper-button-next"></div>
                 <div class="swiper-button-prev"></div>
             </div>
             <div class="caption text-lg text-left">
-                <p>Ченнинг Татум продемонстрировал свои художественные таланты ☝️</p>
+                <p>{{ post.description }}️</p>
             </div>
         </div>
     </article>
@@ -146,7 +138,7 @@
         },
         pagination: {
             el: '.swiper-pagination',
-            clickable: true,
+            clickable: true,  // Включите кликабельность пагинации
         },
         spaceBetween: 0,
         centeredSlides: false,

@@ -4,6 +4,24 @@ from .models import News
 
 # Create your views here.
 
+def get_images_urls_of_post(post: News) -> list:
+    images = []
+    if post.image_1:
+        images.append(post.image_1.url)
+    if post.image_2:
+        images.append(post.image_2.url)
+    if post.image_3:
+        images.append(post.image_3.url)
+    if post.image_4:
+        images.append(post.image_4.url)
+    if post.image_5:
+        images.append(post.image_5.url)
+    if post.image_6:
+        images.append(post.image_6.url)
+
+    return images
+
+
 
 def home_view(request):
     news_list = News.objects.all()
@@ -13,7 +31,12 @@ def home_view(request):
 
 def post_page_view(request, slug):
     post = get_object_or_404(News, slug=slug)
-    context = {"post": post}
+
+
+    context = {
+        "post": post,
+        "images": get_images_urls_of_post(post)
+    }
     return render(request, "post_page.html", context)
 
 
