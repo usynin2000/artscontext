@@ -1,20 +1,30 @@
-<article class="card">
-    <div class="flex items-center justify-between px-4 h-14">
-        <h3 class="text-start leading-5 mr-1">{{ news.title }}</h3>
-    </div>
-    <figure>
-        <a href="{% url 'post-page' news.slug %}"><img class="w-full" src="{{ news.image_1.url }}"></a>
-    </figure>
+<article class="card bg-white shadow-lg rounded-lg mb-6">
     <div class="p-4 pb-1">
-        <p class="md:text-xl mb-1 px-2 font2 text-md">{{ news.description }}</p>
-        {% if tags %}
+        <h3 class="text-lg font-semibold mb-2">{{ news.title }}</h3>
+        <!-- Swiper -->
+        <div class="swiper-container mb-2">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <div class="image-container">
+                        <a href="{% url 'post-page' news.slug %}"><img src="{{ news.image_1.url }}" alt="photo" class="image rounded-lg"></a>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="image-container">
+                        <img src="{{ news.image_2.url }}" alt="photo" class="image rounded-lg">
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
+        <p class="text-md text-gray-600 mb-4">{{ news.description }}</p>
+        {% if news.tags.exists %}
         <div class="flex items-center gap-2 text-sm mb-5 flex-wrap">
-                {% for tag in tags %}
-                <a href="" class="bg-gray-200 rounded-full px-3 py-1 hover:bg-gray-800 hover:text-white">tag</a>
-                <a href="" class="bg-gray-200 rounded-full px-3 py-1 hover:bg-gray-800 hover:text-white">Black &
-                    White</a>
-                {% endfor %}
-
+            {% for tag in news.tags.all %}
+            <a href="{% url 'tag-page' tag.slug %}" class="bg-gray-200 rounded-full px-3 py-1 hover:bg-gray-800 hover:text-white">{{ tag.name }}</a>
+            {% endfor %}
         </div>
         {% endif %}
     </div>
