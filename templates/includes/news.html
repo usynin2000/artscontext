@@ -6,7 +6,8 @@
             <div class="swiper-wrapper">
                 <div class="swiper-slide">
                     <div class="image-container">
-                        <a href="{% url 'post-page' news.slug %}"><img src="{{ news.image_1.url }}" alt="photo" class="image rounded-lg"></a>
+                        <a href="{% url 'post-page' news.slug %}"><img src="{{ news.image_1.url }}" alt="photo"
+                                                                       class="image rounded-lg"></a>
                     </div>
                 </div>
                 <div class="swiper-slide">
@@ -23,7 +24,8 @@
         {% if news.tags.exists %}
         <div class="flex items-center gap-2 text-sm mb-5 flex-wrap">
             {% for tag in news.tags.all %}
-            <a href="{% url 'tag-page' tag.slug %}" class="bg-gray-200 rounded-full px-3 py-1 hover:bg-gray-800 hover:text-white">{{ tag.name }}</a>
+            <a href="{% url 'tag-page' tag.slug %}"
+               class="bg-gray-200 rounded-full px-3 py-1 hover:bg-gray-800 hover:text-white">{{ tag.name }}</a>
             {% endfor %}
         </div>
         {% endif %}
