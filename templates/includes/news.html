@@ -4,17 +4,14 @@
         <!-- Swiper -->
         <div class="swiper-container mb-2">
             <div class="swiper-wrapper">
+                {% for image in news.image_fields %}
                 <div class="swiper-slide">
                     <div class="image-container">
-                        <a href="{% url 'post-page' news.slug %}"><img src="{{ news.image_1.url }}" alt="photo"
+                        <a href="{% url 'post-page' news.slug %}"><img src="{{ image.url }}" alt="photo"
                                                                        class="image rounded-lg"></a>
                     </div>
                 </div>
-                <div class="swiper-slide">
-                    <div class="image-container">
-                        <img src="{{ news.image_2.url }}" alt="photo" class="image rounded-lg">
-                    </div>
-                </div>
+                {% endfor %}
             </div>
             <div class="swiper-pagination"></div>
             <div class="swiper-button-next"></div>

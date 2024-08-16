@@ -86,10 +86,10 @@
             <!-- Swiper -->
             <div class="swiper-container mb-2">
                 <div class="swiper-wrapper">
-                    {% for image in images %}
+                    {% for image in post.image_fields %}
                     <div class="swiper-slide">
                         <div class="image-container">
-                            <img src="{{ image }}"
+                            <img src="{{ image.url }}"
                                  alt="photo" class="image rounded-lg">
                         </div>
                     </div>

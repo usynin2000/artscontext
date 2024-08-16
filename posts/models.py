@@ -16,7 +16,10 @@ class News(models.Model):
     image_5 = models.ImageField(upload_to="images/", null=True, blank=True)
     image_6 = models.ImageField(upload_to="images/", null=True, blank=True)
 
-    ### добавить images и еще что-то
+    @property
+    def image_fields(self):
+        return [getattr(self, f'image_{i}') for i in range(1, 7) if getattr(self, f'image_{i}')]
+
 
     def __str__(self):
         return str(self.title)
