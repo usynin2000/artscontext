@@ -102,6 +102,9 @@
             </div>
             <div class="caption text-lg text-left">
                 <p>{{ post.description }}️</p>
+                <div class="text-right text-slate-400">
+                    <p>{{ post.created_at|date:"d F Y" }}</p>
+                </div>
             </div>
         </div>
     </article>

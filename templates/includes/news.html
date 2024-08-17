@@ -18,6 +18,9 @@
             <div class="swiper-button-prev"></div>
         </div>
         <p class="text-md text-gray-600 mb-4">{{ news.description }}</p>
+        <div class="text-right text-slate-400">
+            <p>{{ news.created_at|date:"d F Y" }}</p>
+        </div>
         {% if news.tags.exists %}
         <div class="flex items-center gap-2 text-sm mb-5 flex-wrap">
             {% for tag in news.tags.all %}
