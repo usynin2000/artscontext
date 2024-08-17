@@ -1,3 +1,5 @@
+from django.utils import timezone
+
 from django.db import models
 from django.utils.text import slugify
 
@@ -15,6 +17,7 @@ class News(models.Model):
     image_4 = models.ImageField(upload_to="images/", null=True, blank=True)
     image_5 = models.ImageField(upload_to="images/", null=True, blank=True)
     image_6 = models.ImageField(upload_to="images/", null=True, blank=True)
+    created_at = models.DateTimeField(default=timezone.now, editable=True)
 
     @property
     def image_fields(self):
@@ -25,6 +28,7 @@ class News(models.Model):
         return str(self.title)
 
     class Meta:
+        ordering = ['-created_at']
         verbose_name_plural = 'Новости'
         verbose_name = 'Новость'
 
