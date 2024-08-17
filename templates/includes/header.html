@@ -24,8 +24,8 @@
          x-transition:enter-start="opacity-0 -translate-y-96"
          x-transition:enter-end="opacity-100 translate-y-0">
         <ul class="flex items-center navitems flex-col md:flex-row gap-8 md:gap-0 justify-center h-full -translate-y-10 md:translate-y-0">
-            <li><a href="/">Новости</a></li>
-            <li><a href="">Обзоры картин</a></li>
+            <li><a href="{% url 'home' %}">Новости</a></li>
+            <li><a href="{% url 'paintings' %}">Обзоры картин</a></li>
             <li><a href="">Наши контакты</a></li>
         </ul>
     </nav>

@@ -25,3 +25,8 @@ def carousel_view(request):
     ]
     caption = 'Enjoy our photo gallery showcasing stunning landscapes and serene environments.'
     return render(request, 'carousel.html', {'images': images, 'caption': caption})
+
+def paintings_view(request):
+    # news_list = News.objects.all()
+
+    return render(request, "paintings.html")
