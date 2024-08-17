@@ -1,45 +1,44 @@
 {% load static %}
 <aside x-show="mobileSidebarOpen" x-cloak
-           class="md:!block col-span-full md:col-span-1 lg:mr-[20%] order-1 md:order-2"
-           x-transition:enter="duration-300 ease-out"
-           x-transition:enter-start="opacity-0 -mt-96"
-           x-transition:enter-end="opacity-100 mt-0">
-        <section class="card p-4">
-            <div class="flex items-center">
-                <img class="w-7 mr-2 -mt-3" src="https://img.icons8.com/ios-glyphs/90/null/fire-heart.png"/>
-                <h2>Наши социальные сети:</h2>
-            </div>
-            <ul>
-                <div class="flex flex-col items-center">
-                    <li class="mb-4">
-                        <div class="flex items-center hover:bg-blue-100">
-                            <img class="w-11 h-11 rounded-lg object-cover mr-3" src="{% static 'telegram_logo.svg' %}">
-                            <a href="https://t.me/artscontext">
-                                <span class="font-bold text-md">Следите за нами в Telegram</span>
-                            </a>
-                        </div>
-                    </li>
-                    <li class="mb-4">
-                        <div class="flex items-center hover:bg-red-100">
-                            <img class="w-11 h-11 rounded-lg object-cover" src="{% static 'instagram_logo.png' %}">
-                            <a href="https://www.instagram.com/artscontext/">
-                                <span class="font-bold text-md ml-2">Следите за нами в Instagram*</span>
-                            </a>
-                        </div>
-                    </li>
-                    <li class="mb-4">
-                        <div class="flex items-center hover:bg-yellow-100">
-                            <img class="w-12 h-12 rounded-lg object-cover" src="{% static 'podcast_logo.png' %}">
-                            <a href="https://music.yandex.ru/album/24375942?dir=desc&activeTab=about">
-                                <p class="font-bold text-md ml-2 text-justify">Слушайте наши подкасты на Яндекс
-                                    Музыке</p>
-                            </a>
-                        </div>
-                    </li>
-                    <p class="text-xs">Meta Platforms Inc. признана экстремистской организацией на территории РФ</p>
-                </div>
+       class="md:!block col-span-full md:col-span-1 lg:mr-[20%] order-1 md:order-2"
+       x-transition:enter="duration-300 ease-out"
+       x-transition:enter-start="opacity-0 -mt-96"
+       x-transition:enter-end="opacity-100 mt-0">
+    <section class="card p-4">
+        <div class="flex items-center">
+            <img class="w-7 mr-2 -mt-3" src="https://img.icons8.com/ios-glyphs/90/null/fire-heart.png"/>
+            <h2 class="text-xl">Наши социальные сети:</h2>
+        </div>
+        <ul>
+            <div class="flex flex-col items-left">
+                <li class="mb-4">
+                    <div class="flex items-center hover:bg-blue-100">
+                        <img class="w-11 h-11 rounded-lg object-cover mr-3" src="{% static 'telegram_logo.svg' %}">
+                        <a href="https://t.me/artscontext">
+                            <span class="font-bold text-md">Узнавайте о новостях быстрее в нашем Telegram-канале</span>
+                        </a>
+                    </div>
                 </li>
-                </div>
-            </ul>
-        </section>
-    </aside>
+                <li class="mb-4">
+                    <div class="flex items-center hover:bg-red-100">
+                        <img class="w-11 h-11 rounded-lg object-cover mr-3" src="{% static 'instagram_logo.png' %}">
+                        <a href="https://www.instagram.com/artscontext/">
+                            <span class="font-bold text-md">Смотрите наши reels в Instagram*</span>
+                        </a>
+                    </div>
+                </li>
+                <li class="mb-4">
+                    <div class="flex items-center hover:bg-yellow-100">
+                        <img class="w-12 h-12 rounded-lg object-cover mr-3" src="{% static 'podcast_logo.png' %}">
+                        <a href="https://music.yandex.ru/album/24375942?dir=desc&activeTab=about">
+                            <span class="font-bold text-md">Слушайте наши подкасты в Яндекс музыке</span>
+                        </a>
+                    </div>
+                </li>
+                <p class="text-xs">Meta Platforms Inc. признана экстремистской организацией на территории РФ</p>
+            </div>
+            </li>
+            </div>
+        </ul>
+    </section>
+</aside>
