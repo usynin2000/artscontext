@@ -9,59 +9,24 @@
 
 <content x-data="{ mobileSidebarOpen: false }" class="max-w-7xl mx-auto my-6 px-6">
     <main class="col-span-full order-2 md:order-1">
-        <div class="grid grid-cols-1 md:grid-cols-2 md:gap-10 px-2 md:px-10">
+        <div class="grid grid-cols-1 md:grid-cols-2 md:gap-5 px-2 md:px-10">
+            {% for painting in paintings %}
             <article class="card">
                 <div class="flex items-center justify-between px-4 h-14">
-                    <h3 class="text-start leading-5 mr-2">Little Jedi</h3>
-                    <div class="text-sm text-gray-400 truncate">flickr<a href="" class="hover:underline ml-1"
-                                                                         target="blank">@John Doe</a></div>
+                    <h3 class="text-start leading-5 mr-2">{{ painting.title }}</h3>
+                    <div class="text-sm text-gray-400 truncate"><a href="" class="hover:underline ml-1"
+                                                                   target="blank">{{painting.artist}}</a></div>
                 </div>
-                <figure>
-                    <a href=""><img class="w-full h-auto object-cover"
-                                    src="https://live.staticflickr.com/65535/50618365686_36f887ab88_c.jpg"></a>
+                <figure class="h-96 overflow-hidden">
+                    <a href="">
+                        <img class="w-full h-full object-cover" src="{{ painting.image.url }}">
+                    </a>
                 </figure>
             </article>
-
-            <article class="card">
-                <div class="flex items-center justify-between px-4 h-14">
-                    <h3 class="text-start leading-5 mr-1">Little Jedi</h3>
-                    <div class="text-sm text-gray-400 truncate">flickr<a href="" class="hover:underline ml-1"
-                                                                         target="blank">@John Doe</a></div>
-                </div>
-                <figure>
-                    <a href=""><img class="w-full h-auto object-cover"
-                                    src="https://live.staticflickr.com/65535/50618365686_36f887ab88_c.jpg"></a>
-                </figure>
-            </article>
-
-            <article class="card">
-                <div class="flex items-center justify-between px-4 h-14">
-                    <h3 class="text-start leading-5 mr-1">Little Jedi</h3>
-                    <div class="text-sm text-gray-400 truncate">flickr<a href="" class="hover:underline ml-1"
-                                                                         target="blank">@John Doe</a></div>
-                </div>
-                <figure>
-                    <a href=""><img class="w-full h-auto object-cover"
-                                    src="https://live.staticflickr.com/65535/50618365686_36f887ab88_c.jpg"></a>
-                </figure>
-            </article>
-
-            <article class="card">
-                <div class="flex items-center justify-between px-4 h-14">
-                    <h3 class="text-start leading-5 mr-1">Little Jedi</h3>
-                    <div class="text-sm text-gray-400 truncate">flickr<a href="" class="hover:underline ml-1"
-                                                                         target="blank">@John Doe</a></div>
-                </div>
-                <figure>
-                    <a href=""><img class="w-full h-auto object-cover"
-                                    src="https://live.staticflickr.com/65535/50618365686_36f887ab88_c.jpg"></a>
-                </figure>
-
-            </article>
+            {% endfor %}
         </div>
     </main>
 </content>
-
 
 </body>
 </html>

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import News
+from .models import News, Review
 
 
 # Create your views here.
@@ -26,7 +26,8 @@ def carousel_view(request):
     caption = 'Enjoy our photo gallery showcasing stunning landscapes and serene environments.'
     return render(request, 'carousel.html', {'images': images, 'caption': caption})
 
-def paintings_view(request):
-    # news_list = News.objects.all()
 
-    return render(request, "paintings.html")
+def paintings_view(request):
+    paintings = Review.objects.all()
+
+    return render(request, "paintings.html", {'paintings': paintings})

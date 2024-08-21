@@ -38,9 +38,16 @@ class Review(models.Model):
     description = models.TextField()
     slug = models.SlugField(blank=True, max_length=130)
     artist = models.ForeignKey("Artist", on_delete=models.CASCADE)
-    image = models.ImageField(upload_to="images/", null=True, blank=True)
+    image = models.ImageField(upload_to="paintings/", null=True, blank=True)
+    created_at = models.DateTimeField(default=timezone.now, editable=True)
+
 
     # добавить images(желательно несколкьо) тип картины Барокко и тд, год создания можно, и еще какие-либо данные
+
+
+    def __str__(self):
+        name = str(self.title) +' (' + str(self.artist) + ')'
+        return name
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -58,11 +65,17 @@ class Review(models.Model):
         verbose_name_plural = 'Обзоры картин'
         verbose_name = 'Обзор картин'
 
+        ordering = ['-created_at']
+
 
 class Artist(models.Model):
     name = models.CharField(max_length=120)
     country = models.CharField(max_length=120)
     ###  возможно еще стиль или эпоху
+
+
+    def __str__(self):
+        return self.name
 
     class Meta:
         verbose_name_plural = 'Художники'
