@@ -84,27 +84,11 @@
     <article class="w-full h-full flex justify-center">
         <div class="w-full md:max-w-3xl h-full bg-white md:p-8 shadow-lg rounded-lg">
             <!-- Swiper -->
-            <div class="swiper-container mb-2">
-                <div class="swiper-wrapper">
-                    {% for image in post.image_fields %}
-                    <div class="swiper-slide">
-                        <div class="image-container">
-                            <img src="{{ image.url }}"
-                                 alt="photo" class="image rounded-lg">
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-                <!-- Перенос пагинации за пределы swiper-wrapper -->
-                <div class="swiper-pagination"></div>
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
+            <div class="swiper-slide">
+                <img src="{{ painting.image.url }}" alt="photo" class="image rounded-lg">
             </div>
-            <div class="caption text-lg text-left">
-                <p>{{ post.description|linebreaksbr }}️</p>
-                <div class="text-right text-slate-400">
-                    <p>{{ post.created_at|date:"d F Y" }}</p>
-                </div>
+            <div class="caption text-lg text-left mx-2">
+                <p>{{ painting.description|linebreaksbr }}️</p>
             </div>
         </div>
     </article>
@@ -129,53 +113,5 @@
     </div>
 </div>
 
-<!-- Подключение Swiper.js -->
-<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-<script>
-    // Инициализация Swiper
-    var swiper = new Swiper('.swiper-container', {
-        loop: true,
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        },
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true,  // Включите кликабельность пагинации
-        },
-        spaceBetween: 0,
-        centeredSlides: false,
-        slidesPerView: 1, // Показывает только один слайд за раз
-        on: {
-            init: function () {
-                adjustSlideHeights();
-            },
-            resize: function () {
-                adjustSlideHeights();
-            },
-        },
-    });
-
-    function adjustSlideHeights() {
-        var slides = document.querySelectorAll('.swiper-slide');
-        var maxHeight = 0;
-
-        // Находим максимальную высоту изображения
-        slides.forEach(function (slide) {
-            var img = slide.querySelector('.image');
-            if (img) {
-                var imgHeight = img.clientHeight;
-                if (imgHeight > maxHeight) {
-                    maxHeight = imgHeight;
-                }
-            }
-        });
-
-        // Устанавливаем высоту всех слайдов в соответствии с максимальной высотой
-        slides.forEach(function (slide) {
-            slide.style.height = maxHeight + 'px';
-        });
-    }
-</script>
 </body>
 </html>

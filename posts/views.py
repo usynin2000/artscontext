@@ -31,3 +31,8 @@ def paintings_view(request):
     paintings = Review.objects.all()
 
     return render(request, "paintings.html", {'paintings': paintings})
+
+
+def painting_view(request, slug):
+    painting = get_object_or_404(Review, slug=slug)
+    return render(request, 'painting_page.html', {'painting': painting})

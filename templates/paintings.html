@@ -18,7 +18,7 @@
                                                                    target="blank">{{painting.artist}}</a></div>
                 </div>
                 <figure class="h-96 overflow-hidden">
-                    <a href="">
+                    <a href="{% url 'painting-detail' painting.slug %}">
                         <img class="w-full h-full object-cover" src="{{ painting.image.url }}">
                     </a>
                 </figure>
