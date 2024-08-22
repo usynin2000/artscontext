@@ -9,55 +9,56 @@
     <!-- Подключение Swiper.js для карусели -->
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
     <style>
+        /* Стили Swiper (оставлены без изменений) */
         .swiper-button-next, .swiper-button-prev {
             color: white;
             background-color: rgba(0, 0, 0, 0.5);
             padding: 20px;
             border-radius: 50%;
-            display: none; /* Скрыть кнопки по умолчанию */
+            display: none;
         }
 
         .swiper-container:hover .swiper-button-next,
         .swiper-container:hover .swiper-button-prev {
-            display: block; /* Показать кнопки при наведении */
+            display: block;
         }
 
         .swiper-pagination {
-            bottom: 10px; /* Расположить пагинацию ниже слайдов */
-            text-align: center; /* Центрирование по горизонтали */
-            z-index: 10; /* Установите высокий z-index, чтобы элемент был видимым поверх слайдов */
+            bottom: 10px;
+            text-align: center;
+            z-index: 10;
         }
 
         .swiper-pagination-bullet {
-            background: white; /* Цвет кружочков */
+            background: white;
             opacity: 0.8;
         }
 
         .swiper-pagination-bullet-active {
-            background: rgba(0, 0, 0, 0.8); /* Цвет активного кружочка */
+            background: rgba(0, 0, 0, 0.8);
         }
 
         .swiper-slide {
             display: flex;
             justify-content: center;
-            align-items: center; /* Центрирование по вертикали */
+            align-items: center;
             width: 100%;
-            height: 100%; /* Слайды занимают высоту контейнера */
+            height: 100%;
         }
 
         .image-container {
             display: flex;
-            align-items: center; /* Центрирование изображений по вертикали */
-            justify-content: center; /* Центрирование изображений по горизонтали */
-            max-height: 500px; /* Максимальная высота контейнера с изображением */
+            align-items: center;
+            justify-content: center;
+            max-height: 500px;
             width: 100%;
             overflow: hidden;
-            position: relative; /* Относительное позиционирование для более гибкого контроля */
+            position: relative;
         }
 
         .image {
             max-width: 100%;
-            object-fit: contain; /* Сохранение пропорций изображения */
+            object-fit: contain;
         }
 
         .caption {
@@ -72,7 +73,7 @@
             width: 100%;
             height: auto;
             overflow: hidden;
-            position: relative; /* Устанавливаем относительное позиционирование для контейнера */
+            position: relative;
         }
     </style>
     {% include 'includes/head.html' %}
@@ -104,6 +105,12 @@
                 <p>{{ post.description|linebreaksbr }}️</p>
                 <div class="text-right text-slate-400">
                     <p>{{ post.created_at|date:"d F Y" }}</p>
+                </div>
+                <!-- Добавляем кнопку "Назад" -->
+                <div class="text-left">
+                    <button onclick="goBack()" class="text-slate-500 hover:text-blue-400 focus:outline-none">
+                        ← Назад
+                    </button>
                 </div>
             </div>
         </div>
@@ -141,11 +148,11 @@
         },
         pagination: {
             el: '.swiper-pagination',
-            clickable: true,  // Включите кликабельность пагинации
+            clickable: true,
         },
         spaceBetween: 0,
         centeredSlides: false,
-        slidesPerView: 1, // Показывает только один слайд за раз
+        slidesPerView: 1,
         on: {
             init: function () {
                 adjustSlideHeights();
@@ -160,7 +167,6 @@
         var slides = document.querySelectorAll('.swiper-slide');
         var maxHeight = 0;
 
-        // Находим максимальную высоту изображения
         slides.forEach(function (slide) {
             var img = slide.querySelector('.image');
             if (img) {
@@ -171,10 +177,14 @@
             }
         });
 
-        // Устанавливаем высоту всех слайдов в соответствии с максимальной высотой
         slides.forEach(function (slide) {
             slide.style.height = maxHeight + 'px';
         });
+    }
+
+    // Логика возврата на предыдущую страницу
+    function goBack() {
+        window.history.back();
     }
 </script>
 </body>
