@@ -1,8 +1,6 @@
-from django.utils import timezone
-
 from django.db import models
+from django.utils import timezone
 from django.utils.text import slugify
-
 
 # Create your models here.
 
@@ -21,16 +19,19 @@ class News(models.Model):
 
     @property
     def image_fields(self):
-        return [getattr(self, f'image_{i}') for i in range(1, 7) if getattr(self, f'image_{i}')]
-
+        return [
+            getattr(self, f"image_{i}")
+            for i in range(1, 7)
+            if getattr(self, f"image_{i}")
+        ]
 
     def __str__(self):
         return str(self.title)
 
     class Meta:
-        ordering = ['-created_at']
-        verbose_name_plural = 'Новости'
-        verbose_name = 'Новость'
+        ordering = ["-created_at"]
+        verbose_name_plural = "Новости"
+        verbose_name = "Новость"
 
 
 class Review(models.Model):
@@ -41,12 +42,10 @@ class Review(models.Model):
     image = models.ImageField(upload_to="paintings/", null=True, blank=True)
     created_at = models.DateTimeField(default=timezone.now, editable=True)
 
-
     # добавить images(желательно несколкьо) тип картины Барокко и тд, год создания можно, и еще какие-либо данные
 
-
     def __str__(self):
-        name = str(self.title) +' (' + str(self.artist) + ')'
+        name = str(self.title) + " (" + str(self.artist) + ")"
         return name
 
     def save(self, *args, **kwargs):
@@ -62,10 +61,10 @@ class Review(models.Model):
         super().save(*args, **kwargs)
 
     class Meta:
-        verbose_name_plural = 'Обзоры картин'
-        verbose_name = 'Обзор картин'
+        verbose_name_plural = "Обзоры картин"
+        verbose_name = "Обзор картин"
 
-        ordering = ['-created_at']
+        ordering = ["-created_at"]
 
 
 class Artist(models.Model):
@@ -73,13 +72,12 @@ class Artist(models.Model):
     country = models.CharField(max_length=120)
     ###  возможно еще стиль или эпоху
 
-
     def __str__(self):
         return self.name
 
     class Meta:
-        verbose_name_plural = 'Художники'
-        verbose_name = 'Художник'
+        verbose_name_plural = "Художники"
+        verbose_name = "Художник"
 
 
 class Tag(models.Model):
@@ -87,5 +85,5 @@ class Tag(models.Model):
     ### связь с новостями или типами продумать
 
     class Meta:
-        verbose_name_plural = 'Тэги'
-        verbose_name = 'Тэг'
+        verbose_name_plural = "Тэги"
+        verbose_name = "Тэг"
