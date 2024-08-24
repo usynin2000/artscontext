@@ -45,3 +45,7 @@ def paintings_view(request):
 def painting_view(request, slug):
     painting = get_object_or_404(Review, slug=slug)
     return render(request, "painting_page.html", {"painting": painting})
+
+
+def contacts_view(request):
+    return render(request, "contacts.html")
