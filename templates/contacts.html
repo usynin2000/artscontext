@@ -5,43 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Contacts</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    {% include 'includes/head.html' %}
 </head>
 <body class="bg-gray-100 text-gray-800">
+{% include 'includes/header.html' %}
 
-<!-- Container -->
-<div class="max-w-lg mx-auto my-10 p-6 bg-white rounded-lg shadow-md">
-    <h1 class="text-3xl font-bold text-center mb-6">My Contacts</h1>
-
-    <!-- Name -->
-    <div class="mb-4">
-        <h2 class="text-xl font-semibold">Name:</h2>
-        <p class="text-lg">Your Name</p>
+{% load static %}
+<section class="card p-4 md:mt-20 mt-4">
+    <div class="flex items-center">
+        <img class="w-7 mr-2 -mt-3" src="https://img.icons8.com/ios-glyphs/90/null/fire-heart.png"/>
+        <h2 class="text-xl">Наши социальные сети:</h2>
     </div>
-
-    <!-- Email -->
-    <div class="mb-4">
-        <h2 class="text-xl font-semibold">Email:</h2>
-        <p class="text-lg"><a href="mailto:youremail@example.com" class="text-blue-500 hover:underline">youremail@example.com</a>
-        </p>
-    </div>
-
-    <!-- Phone -->
-    <div class="mb-4">
-        <h2 class="text-xl font-semibold">Phone:</h2>
-        <p class="text-lg"><a href="tel:+1234567890" class="text-blue-500 hover:underline">+1234567890</a></p>
-    </div>
-
-    <!-- Social Media -->
-    <div>
-        <h2 class="text-xl font-semibold mb-2">Social Media:</h2>
-        <div class="flex space-x-4">
-            <a href="https://linkedin.com/in/yourprofile" target="_blank"
-               class="text-blue-500 hover:underline">LinkedIn</a>
-            <a href="https://twitter.com/yourprofile" target="_blank" class="text-blue-500 hover:underline">Twitter</a>
-            <a href="https://github.com/yourprofile" target="_blank" class="text-blue-500 hover:underline">GitHub</a>
-        </div>
-    </div>
-</div>
-
+    <ul class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+        <li class="mb-4">
+            <div class="flex items-center hover:bg-blue-100 p-2 rounded-lg">
+                <img class="w-16 h-16 rounded-lg object-cover mr-3" src="{% static 'telegram_logo.svg' %}">
+                <a href="https://t.me/artscontext">
+                    <span class="font-bold text-md">Узнавайте о новостях быстрее в нашем Telegram-канале</span>
+                </a>
+            </div>
+        </li>
+        <li class="mb-4">
+            <div class="flex items-center hover:bg-red-100 p-2 rounded-lg">
+                <img class="w-16 h-16 rounded-lg object-cover mr-3" src="{% static 'instagram_logo.png' %}">
+                <a href="https://www.instagram.com/artscontext/">
+                    <span class="font-bold text-md">Смотрите наши reels в Instagram*</span>
+                </a>
+            </div>
+        </li>
+        <li class="mb-4">
+            <div class="flex items-center hover:bg-yellow-100 p-2 rounded-lg">
+                <img class="w-16 h-16 rounded-lg object-cover mr-3" src="{% static 'podcast_logo.png' %}">
+                <a href="https://music.yandex.ru/album/24375942?dir=desc&activeTab=about">
+                    <span class="font-bold text-md">Слушайте наши подкасты в Яндекс музыке</span>
+                </a>
+            </div>
+        </li>
+    </ul>
+    <p class="text-xs mt-4">Meta Platforms Inc. признана экстремистской организацией на территории РФ</p>
+</section>
 </body>
 </html>
