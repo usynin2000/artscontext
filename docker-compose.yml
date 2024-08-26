@@ -1,6 +1,18 @@
 version: '3.8'
 
 services:
+  db:
+    image: postgres:15
+    container_name: postgres_db
+    environment:
+      POSTGRES_DB: artscontext
+      POSTGRES_USER: artscontext
+      POSTGRES_PASSWORD: artscontext
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "6433:5432"  # Проброс порта на хосте (6433) к внутреннему порту контейнера (5432)
+
   app:
     build: .
     container_name: python_app
@@ -10,4 +22,9 @@ services:
       - "8000:8000"
     environment:
       - DEBUG=1
+    depends_on:
+      - db
     command: python manage.py runserver 0.0.0.0:8000
+
+volumes:
+  postgres_data:

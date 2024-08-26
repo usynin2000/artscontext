@@ -73,13 +73,25 @@ WSGI_APPLICATION = "core.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
+#
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "artscontext",
+        "USER": "artscontext",
+        "PASSWORD": "artscontext",
+        "HOST": "db",  # Имя сервиса базы данных из docker-compose.yml
+        "PORT": "5432",  # Внутренний порт контейнера PostgreSQL
     }
 }
+
+
 
 
 # Password validation
