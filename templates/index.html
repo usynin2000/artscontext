@@ -94,9 +94,11 @@
         </a>
     </mobileSidebarNav>
     <main class="col-span-full md:col-span-2 md:mr-[5%] lg:mx-[10%] order-2 md:order-1">
-        {% for news in news_list %}
-        {% include 'includes/news.html' %}
-        {% endfor %}
+        {% if news_list %}
+            {% for news in news_list %}
+            {% include 'includes/news.html' %}
+            {% endfor %}
+        {% endif %}
     </main>
 
     {% include 'includes/sidebar.html' %}
