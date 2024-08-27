@@ -5,13 +5,13 @@ services:
     image: postgres:15
     container_name: postgres_db
     environment:
-      POSTGRES_DB: artscontext
-      POSTGRES_USER: artscontext
-      POSTGRES_PASSWORD: artscontext
+      POSTGRES_DB: ${DJANGO_DB_NAME}
+      POSTGRES_USER: ${DJANGO_DB_USER}
+      POSTGRES_PASSWORD: ${DJANGO_DB_PASSWORD}
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - artscontext_data:/var/lib/postgresql/data
     ports:
-      - "6433:5432"  # Проброс порта на хосте (6433) к внутреннему порту контейнера (5432)
+      - "6433:5432"
 
   app:
     build: .
@@ -24,7 +24,7 @@ services:
       - DEBUG=1
     depends_on:
       - db
-    command: python manage.py runserver 0.0.0.0:8000
+    command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
 
 volumes:
-  postgres_data:
+  artscontext_data:
