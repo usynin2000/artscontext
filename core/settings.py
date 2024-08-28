@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+from django.core.exceptions import ImproperlyConfigured
 
 # Загружаем переменные окружения из .env файла
 load_dotenv()
@@ -86,6 +87,13 @@ WSGI_APPLICATION = "core.wsgi.application"
 #         "NAME": BASE_DIR / "db.sqlite3",
 #     }
 # }
+
+def get_env_var(var_name):
+    value = os.getenv(var_name)
+    if value is None:
+        raise ImproperlyConfigured(f"Environment variable '{var_name}' is not set.")
+    return value
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
