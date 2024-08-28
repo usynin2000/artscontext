@@ -19,12 +19,12 @@ services:
     volumes:
       - .:/app
     ports:
-      - "8000:8000"
+      - "8888:8888"
     environment:
       - DEBUG=1
     depends_on:
       - db
-    command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8888"
 
 volumes:
   artscontext_data:
