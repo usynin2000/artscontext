@@ -32,7 +32,7 @@ SECRET_KEY = "django-insecure-^bi9e)uob(544n76+hxuaswhyoh(e75sg3$pz%&*=!c4oe6y3w
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0']
+ALLOWED_HOSTS = ["0.0.0.0"]
 
 
 # Application definition
@@ -88,24 +88,24 @@ WSGI_APPLICATION = "core.wsgi.application"
 #     }
 # }
 
+
 def get_env_var(var_name):
     value = os.getenv(var_name)
     if value is None:
         raise ImproperlyConfigured(f"Environment variable '{var_name}' is not set.")
     return value
 
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DJANGO_DB_NAME'),
-        'USER': os.getenv('DJANGO_DB_USER'),
-        'PASSWORD': os.getenv('DJANGO_DB_PASSWORD'),
-        'HOST': os.getenv('DJANGO_DB_HOST'),
-        'PORT': os.getenv('DJANGO_DB_PORT'),
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.getenv("DJANGO_DB_NAME"),
+        "USER": os.getenv("DJANGO_DB_USER"),
+        "PASSWORD": os.getenv("DJANGO_DB_PASSWORD"),
+        "HOST": os.getenv("DJANGO_DB_HOST"),
+        "PORT": os.getenv("DJANGO_DB_PORT"),
     }
 }
-
-
 
 
 # Password validation
