@@ -95,9 +95,9 @@
     </mobileSidebarNav>
     <main class="col-span-full md:col-span-2 md:mr-[5%] lg:mx-[10%] order-2 md:order-1">
         {% if news_list %}
-            {% for news in news_list %}
-            {% include 'includes/news.html' %}
-            {% endfor %}
+        {% for news in news_list %}
+        {% include 'includes/news.html' %}
+        {% endfor %}
         {% endif %}
     </main>
 
@@ -109,7 +109,7 @@
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script>
     // Инициализация Swiper для каждой карусели
-    document.querySelectorAll('.swiper-container').forEach(function(swiperEl) {
+    document.querySelectorAll('.swiper-container').forEach(function (swiperEl) {
         new Swiper(swiperEl, {
             loop: true,
             navigation: {
