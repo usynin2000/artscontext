@@ -145,10 +145,34 @@ USE_TZ = True
 STATIC_URL = "static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 
-MEDIA_URL = "media/"
-MEDIA_ROOT = BASE_DIR / "media"
+# MEDIA_URL = "media/"
+# MEDIA_ROOT = BASE_DIR / "media"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+
+
+
+# Yandex Cloud Backet
+INSTALLED_APPS += [
+    'storages',
+]
+
+# Настройки для Yandex Object Storage
+AWS_ACCESS_KEY_ID = os.getenv('YANDEX_ACCESS_KEY_ID')  # Ваш Yandex Access Key
+AWS_SECRET_ACCESS_KEY = os.getenv('YANDEX_SECRET_ACCESS_KEY')  # Ваш Yandex Secret Key
+AWS_STORAGE_BUCKET_NAME = os.getenv('YANDEX_BUCKET_NAME')  # Имя вашего Yandex бакета
+AWS_S3_ENDPOINT_URL = 'https://storage.yandexcloud.net'  # Endpoint для Yandex Object Storage
+AWS_S3_REGION_NAME = os.getenv('YANDEX_REGION_NAME', 'ru-central1')  # Регион вашего бакета
+
+# Установка URL для доступа к файлам
+AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.storage.yandexcloud.net'
+MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/'
+
+# Использование Yandex Object Storage для хранения медиафайлов
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
