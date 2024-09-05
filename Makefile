@@ -1,5 +1,5 @@
 dev:
-	python manage.py runserver
+	docker-compose -f docker-compose.dev.yml up --build
 
 makemigrations:
 	python manage.py makemigrations
@@ -7,8 +7,8 @@ makemigrations:
 migrate:
 	python manage.py migrate
 
-up:
-	docker compose up --build
+prod:
+	docker-compose -f docker-compose.prod.yml up --build
 
 down:
 	docker-compose down

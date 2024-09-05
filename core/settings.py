@@ -5,17 +5,15 @@ from django.core.exceptions import ImproperlyConfigured
 
 load_dotenv()
 
-
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DJANGO_DEBUG", True)
+DEBUG = os.getenv("DJANGO_DEBUG", "True") == "True"
 
-ALLOWED_HOSTS = ["0.0.0.0", "artscontext.ru", "www.artscontext.ru"]
+ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "0.0.0.0,artscontext.ru,www.artscontext.ru").split(",")
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -57,14 +55,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "core.wsgi.application"
 
-
-def get_env_var(var_name):
-    value = os.getenv(var_name)
-    if value is None:
-        raise ImproperlyConfigured(f"Environment variable '{var_name}' is not set.")
-    return value
-
-
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
@@ -76,9 +66,7 @@ DATABASES = {
     }
 }
 
-
 # Password validation
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
@@ -94,26 +82,17 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
-
 LANGUAGE_CODE = "ru-ru"
-
 TIME_ZONE = "Europe/Moscow"
-
 USE_I18N = True
-
 USE_TZ = True
 
-
 # Static files
-
 STATIC_URL = "static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 
-
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
 
 # Yandex Cloud Backet
 INSTALLED_APPS += [
@@ -137,3 +116,10 @@ MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/"
 
 # Использование Yandex Object Storage для хранения медиафайлов
 DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+
+# Дополнительные настройки для продакшн-среды
+if not DEBUG:
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    # Другие продакшн настройки

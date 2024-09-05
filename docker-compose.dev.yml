@@ -21,7 +21,18 @@ services:
     ports:
       - "8888:8888"
     environment:
-      - DEBUG=1
+      - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
+      - DJANGO_DEBUG=True
+      - DJANGO_ALLOWED_HOSTS=0.0.0.0,localhost
+      - DJANGO_DB_NAME=${DJANGO_DB_NAME}
+      - DJANGO_DB_USER=${DJANGO_DB_USER}
+      - DJANGO_DB_PASSWORD=${DJANGO_DB_PASSWORD}
+      - DJANGO_DB_HOST=db
+      - DJANGO_DB_PORT=5432
+      - YANDEX_ACCESS_KEY_ID=${YANDEX_ACCESS_KEY_ID}
+      - YANDEX_SECRET_ACCESS_KEY=${YANDEX_SECRET_ACCESS_KEY}
+      - YANDEX_BUCKET_NAME=${YANDEX_BUCKET_NAME}
+      - YANDEX_REGION_NAME=${YANDEX_REGION_NAME}
     depends_on:
       - db
     command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8888"
