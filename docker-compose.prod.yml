@@ -10,6 +10,7 @@ services:
       POSTGRES_PASSWORD: ${DJANGO_DB_PASSWORD}
     volumes:
       - artscontext_data:/var/lib/postgresql/data
+      - /etc/letsencrypt:/etc/letsencrypt
     ports:
       - "6433:5432"
 
