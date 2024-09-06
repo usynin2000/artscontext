@@ -1,50 +1,31 @@
 version: '3.8'
 
 services:
-  db:
-    image: postgres:15
-    container_name: postgres_db
-    environment:
-      POSTGRES_DB: ${DJANGO_DB_NAME}
-      POSTGRES_USER: ${DJANGO_DB_USER}
-      POSTGRES_PASSWORD: ${DJANGO_DB_PASSWORD}
-    volumes:
-      - artscontext_data:/var/lib/postgresql/data
-      - /etc/letsencrypt:/etc/letsencrypt
-    ports:
-      - "6433:5432"
-
-  web_app:
-    build: .
-    container_name: web_app
-    volumes:
-      - .:/app
-    environment:
-      - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
-      - DJANGO_DEBUG=False
-      - DJANGO_ALLOWED_HOSTS=${DJANGO_ALLOWED_HOSTS}
-      - DJANGO_DB_NAME=${DJANGO_DB_NAME}
-      - DJANGO_DB_USER=${DJANGO_DB_USER}
-      - DJANGO_DB_PASSWORD=${DJANGO_DB_PASSWORD}
-      - DJANGO_DB_HOST=${DJANGO_DB_HOST}
-      - DJANGO_DB_PORT=${DJANGO_DB_PORT}
-      - YANDEX_ACCESS_KEY_ID=${YANDEX_ACCESS_KEY_ID}
-      - YANDEX_SECRET_ACCESS_KEY=${YANDEX_SECRET_ACCESS_KEY}
-      - YANDEX_BUCKET_NAME=${YANDEX_BUCKET_NAME}
-      - YANDEX_REGION_NAME=${YANDEX_REGION_NAME}
-    depends_on:
-      - db
-    command: sh -c "python manage.py migrate && gunicorn core.wsgi:application --bind 0.0.0.0:8888"
-
   nginx:
     image: nginx:latest
-    container_name: nginx
     ports:
       - "80:80"
+      - "443:443"
     volumes:
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - /etc/letsencrypt:/etc/letsencrypt
     depends_on:
       - web_app
 
-volumes:
-  artscontext_data:
+  web_app:
+    build:
+      context: .
+    command: sh -c "python manage.py migrate && gunicorn myproject.wsgi:application --bind 0.0.0.0:8888"
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: mydatabase
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+    ports:
+      - "6433:5432"
