@@ -13,7 +13,9 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DJANGO_DEBUG", "True") == "True"
 
-ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "0.0.0.0,artscontext.ru,www.artscontext.ru").split(",")
+ALLOWED_HOSTS = os.getenv(
+    "DJANGO_ALLOWED_HOSTS", "0.0.0.0,artscontext.ru,www.artscontext.ru"
+).split(",")
 
 INSTALLED_APPS = [
     "django.contrib.admin",
