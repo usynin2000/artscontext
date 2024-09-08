@@ -4,12 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ post.title }}</title>
-    <!-- Подключение Tailwind CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <!-- Подключение Swiper.js для карусели -->
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
     <style>
-        /* Стили Swiper (оставлены без изменений) */
         .swiper-button-next, .swiper-button-prev {
             color: white;
             background-color: rgba(0, 0, 0, 0.5);
@@ -108,7 +106,6 @@
                 <div class="text-right text-slate-400 mt-2">
                     <p>{{ post.created_at|date:"d F Y" }}</p>
                 </div>
-                <!-- Добавляем кнопку "Назад" -->
                 <div class="text-left">
                     <button onclick="goBack()" class="text-slate-500 hover:text-blue-400 focus:outline-none">
                         ← Назад
