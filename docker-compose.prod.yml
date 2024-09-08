@@ -15,17 +15,30 @@ services:
   web_app:
     build:
       context: .
-    command: sh -c "python manage.py migrate && gunicorn myproject.wsgi:application --bind 0.0.0.0:8888"
+    command: sh -c "python manage.py migrate && gunicorn core.wsgi:application --bind 0.0.0.0:8888"
     volumes:
       - .:/app
     depends_on:
       - db
+    environment:
+      DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY}
+      DJANGO_DEBUG: ${DJANGO_DEBUG}
+      DJANGO_ALLOWED_HOSTS: ${DJANGO_ALLOWED_HOSTS}
+      DJANGO_DB_NAME: ${DJANGO_DB_NAME}
+      DJANGO_DB_USER: ${DJANGO_DB_USER}
+      DJANGO_DB_PASSWORD: ${DJANGO_DB_PASSWORD}
+      DJANGO_DB_HOST: ${DJANGO_DB_HOST}
+      DJANGO_DB_PORT: ${DJANGO_DB_PORT}
+      YANDEX_ACCESS_KEY_ID: ${YANDEX_ACCESS_KEY_ID}
+      YANDEX_SECRET_ACCESS_KEY: ${YANDEX_SECRET_ACCESS_KEY}
+      YANDEX_BUCKET_NAME: ${YANDEX_BUCKET_NAME}
+      YANDEX_REGION_NAME: ${YANDEX_REGION_NAME}
 
   db:
     image: postgres:15
     environment:
-      POSTGRES_DB: mydatabase
-      POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: ${DJANGO_DB_NAME}
+      POSTGRES_USER: ${DJANGO_DB_USER}
+      POSTGRES_PASSWORD: ${DJANGO_DB_PASSWORD}
     ports:
       - "6433:5432"
