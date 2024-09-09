@@ -5,17 +5,22 @@ from django.core.exceptions import ImproperlyConfigured
 
 load_dotenv()
 
+def get_env_variable(var_name):
+    """Get the environment variable or return exception."""
+    value = os.getenv(var_name)
+    if value is None:
+        raise ImproperlyConfigured(f"Set the {var_name} environment variable.")
+    return value
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
+SECRET_KEY = get_env_variable("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DJANGO_DEBUG", "True") == "True"
+DEBUG = get_env_variable("DJANGO_DEBUG") == "True"
 
-ALLOWED_HOSTS = os.getenv(
-    "DJANGO_ALLOWED_HOSTS", "0.0.0.0,artscontext.ru,www.artscontext.ru"
-).split(",")
+ALLOWED_HOSTS = get_env_variable("DJANGO_ALLOWED_HOSTS").split(",")
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -60,11 +65,11 @@ WSGI_APPLICATION = "core.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv("DJANGO_DB_NAME"),
-        "USER": os.getenv("DJANGO_DB_USER"),
-        "PASSWORD": os.getenv("DJANGO_DB_PASSWORD"),
-        "HOST": os.getenv("DJANGO_DB_HOST"),
-        "PORT": os.getenv("DJANGO_DB_PORT"),
+        "NAME": get_env_variable("DJANGO_DB_NAME"),
+        "USER": get_env_variable("DJANGO_DB_USER"),
+        "PASSWORD": get_env_variable("DJANGO_DB_PASSWORD"),
+        "HOST": get_env_variable("DJANGO_DB_HOST"),
+        "PORT": get_env_variable("DJANGO_DB_PORT"),
     }
 }
 
@@ -107,15 +112,13 @@ INSTALLED_APPS += [
 ]
 
 # Настройки для Yandex Object Storage
-AWS_ACCESS_KEY_ID = os.getenv("YANDEX_ACCESS_KEY_ID")  # Ваш Yandex Access Key
-AWS_SECRET_ACCESS_KEY = os.getenv("YANDEX_SECRET_ACCESS_KEY")  # Ваш Yandex Secret Key
-AWS_STORAGE_BUCKET_NAME = os.getenv("YANDEX_BUCKET_NAME")  # Имя вашего Yandex бакета
+AWS_ACCESS_KEY_ID = get_env_variable("YANDEX_ACCESS_KEY_ID")  # Ваш Yandex Access Key
+AWS_SECRET_ACCESS_KEY = get_env_variable("YANDEX_SECRET_ACCESS_KEY")  # Ваш Yandex Secret Key
+AWS_STORAGE_BUCKET_NAME = get_env_variable("YANDEX_BUCKET_NAME")  # Имя вашего Yandex бакета
 AWS_S3_ENDPOINT_URL = (
     "https://storage.yandexcloud.net"  # Endpoint для Yandex Object Storage
 )
-AWS_S3_REGION_NAME = os.getenv(
-    "YANDEX_REGION_NAME", "ru-central1"
-)  # Регион вашего бакета
+AWS_S3_REGION_NAME = get_env_variable("YANDEX_REGION_NAME")  # Регион вашего бакета
 
 # Установка URL для доступа к файлам
 AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.storage.yandexcloud.net"
