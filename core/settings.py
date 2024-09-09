@@ -137,3 +137,7 @@ if not DEBUG:
     SECURE_HSTS_SECONDS = 3600
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_HSTS_PRELOAD = True
+
+    # Добавьте эти строки
+    CSRF_TRUSTED_ORIGINS = ["https://artscontext.ru", "https://www.artscontext.ru"]
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
