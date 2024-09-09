@@ -9,6 +9,8 @@ services:
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
       - /etc/letsencrypt:/etc/letsencrypt
+      - ./staticfiles:/app/staticfiles  # Добавьте эту строку
+      - ./media:/app/media  # Добавьте эту строку
     depends_on:
       - web_app
 
