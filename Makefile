@@ -17,6 +17,12 @@ prod:
 prod_down:
 	docker-compose -f docker-compose.prod.yml down
 
+logs_web_app:
+	docker-compose -f docker-compose.prod.yml logs web_app
+
+logs_nginx:
+	docker-compose -f docker-compose.prod.yml logs nginx
+
 
 lint:
 	black .
