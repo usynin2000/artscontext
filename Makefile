@@ -13,7 +13,6 @@ migrate:
 prod:
 	docker-compose -f docker-compose.prod.yml up --build -d
 
-
 prod_down:
 	docker-compose -f docker-compose.prod.yml down
 
@@ -23,6 +22,8 @@ logs_web_app:
 logs_nginx:
 	docker-compose -f docker-compose.prod.yml logs nginx
 
+logs_db:
+	docker-compose -f docker-compose.prod.yml logs db
 
 lint:
 	black .
