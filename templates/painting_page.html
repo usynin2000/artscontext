@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ post.title }}</title>
-    <!-- Подключение Tailwind CSS -->
+    <title>{{ post.title }} - {{painting.artist}}</title>
+    <meta name="description" content="{{ painting.description|linebreaksbr }}️">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <!-- Подключение Swiper.js для карусели -->
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
     <style>
         .swiper-button-next, .swiper-button-prev {
@@ -89,7 +88,7 @@
             </div>
 
             <div class="caption text-lg text-left md:mx-2">
-                <h3>{{ painting.title }} </h3>
+                <h3>{{ painting.title }}</h3>
                 <div class="text-md text-left text-gray-400"><a href="" class="hover:underline"
                                                                 target="blank">{{painting.artist}}</a></div>
                 <br>

@@ -142,3 +142,4 @@ public_key
 
 key.json
 .DS_Store
+.vscode/
