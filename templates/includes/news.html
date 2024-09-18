@@ -1,13 +1,12 @@
 <article class="card bg-white shadow-lg rounded-lg mb-6">
     <div class="p-4 pb-1">
         <h3 class="text-lg font-semibold mb-2">{{ news.title }}</h3>
-        <!-- Swiper -->
         <div class="swiper-container mb-2">
             <div class="swiper-wrapper">
                 {% for image in news.image_fields %}
                 <div class="swiper-slide">
                     <div class="image-container">
-                        <a href="{% url 'post-page' news.slug %}"><img src="{{ image.url }}" alt="photo"
+                        <a href="{% url 'post-page' news.slug %}"><img src="{{ image.url }}" alt="{{ news.title }}"
                                                                        class="image rounded-lg"></a>
                     </div>
                 </div>
