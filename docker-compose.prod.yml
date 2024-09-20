@@ -12,6 +12,7 @@ services:
       - ./staticfiles:/app/staticfiles
       - ./media:/app/media
       - ./sitemap.xml:/app/sitemap.xml
+      - ./robots.txt:/app/robots.txt
     depends_on:
       - web_app
 
