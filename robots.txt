@@ -1,4 +1,4 @@
-# artsconext.ru
+# artscontext.ru
 User-agent: *
 Disallow: /admin/*
 Sitemap: https://artscontext.ru/sitemap.xml
