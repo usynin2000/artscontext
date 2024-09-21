@@ -1,211 +1,226 @@
 {% load static %}
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Art's Context</title>
-    <link rel="shortcut icon" type="image/png" href="{% static 'logo_arstcontext.png' %}"/>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style type="text/tailwindcss">
-        [x-cloak] {
-            display: none !important;
-        }
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Art's Context</title>
+<link rel="shortcut icon" type="image/png" href="{% static 'logo_arstcontext.png' %}"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <!-- Yandex.Metrika counter -->
+<script type="text/javascript" >
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();
+    for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
 
-        :root {
-            --primary: rgb(88, 40, 244);
-            --primary-hover: rgb(69, 29, 200);
-            --black: #1f2937;
-            --font1: 'Roboto', sans-serif;
-        }
+    ym(98413980, "init", {
+        clickmap:true,
+        trackLinks:true,
+        accurateTrackBounce:true,
+        webvisor:true
+    });
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/98413980" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<style type="text/tailwindcss">
+    [x-cloak] {
+        display: none !important;
+    }
 
-        h1 {
-            @apply text-4xl font-bold mb-4;
-        }
+    :root {
+        --primary: rgb(88, 40, 244);
+        --primary-hover: rgb(69, 29, 200);
+        --black: #1f2937;
+        --font1: 'Roboto', sans-serif;
+    }
 
-        h2 {
-            @apply text-2xl font-bold mb-3;
-        }
+    h1 {
+        @apply text-4xl font-bold mb-4;
+    }
 
-        h3 {
-            @apply text-lg font-bold;
-        }
+    h2 {
+        @apply text-2xl font-bold mb-3;
+    }
 
-        .font1 {
-            font-family: var(--font1);
-        }
+    h3 {
+        @apply text-lg font-bold;
+    }
 
-        .button, button, [type='submit'], [type='button'] {
-            @apply inline-flex items-center justify-center flex-shrink-0 text-center rounded-lg cursor-pointer px-4 py-2 font-semibold shadow-md transition-transform duration-200;
-        }
+    .font1 {
+        font-family: var(--font1);
+    }
 
-        .button:active, button:active, [type='submit']:active, [type='button']:active {
-            transform: scale(0.95);
-        }
+    .button, button, [type='submit'], [type='button'] {
+        @apply inline-flex items-center justify-center flex-shrink-0 text-center rounded-lg cursor-pointer px-4 py-2 font-semibold shadow-md transition-transform duration-200;
+    }
 
-        .secondaryAction {
-            @apply bg-white text-gray-600 border border-gray-300;
-        }
+    .button:active, button:active, [type='submit']:active, [type='button']:active {
+        transform: scale(0.95);
+    }
 
-        .secondaryAction:hover {
-            @apply bg-gray-100;
-        }
+    .secondaryAction {
+        @apply bg-white text-gray-600 border border-gray-300;
+    }
 
-        .navitems > li > a {
-            @apply flex items-center gap-2 h-12 px-4 hover:bg-gray-700 rounded-lg;
-        }
+    .secondaryAction:hover {
+        @apply bg-gray-100;
+    }
 
-        .card {
-            @apply flex flex-col overflow-hidden relative rounded-lg shadow-lg mb-8 bg-white p-4;
-        }
+    .navitems > li > a {
+        @apply flex items-center gap-2 h-12 px-4 hover:bg-gray-700 rounded-lg;
+    }
 
-        .hoverlist > * {
-            @apply hover:bg-gray-100 rounded-md transition duration-150;
-        }
+    .card {
+        @apply flex flex-col overflow-hidden relative rounded-lg shadow-lg mb-8 bg-white p-4;
+    }
 
-        .hoverlist > * > a {
-            @apply flex items-center p-2;
-        }
+    .hoverlist > * {
+        @apply hover:bg-gray-100 rounded-md transition duration-150;
+    }
 
-        .highlight {
-            @apply bg-indigo-100;
-        }
+    .hoverlist > * > a {
+        @apply flex items-center p-2;
+    }
 
-        .titleBlip {
-            animation: 1s fadeIn;
-        }
+    .highlight {
+        @apply bg-indigo-100;
+    }
 
-        @keyframes fadeIn {
-            0% {
-                opacity: 0;
-            }
-            100% {
-                opacity: 1;
-            }
-        }
+    .titleBlip {
+        animation: 1s fadeIn;
+    }
 
-        html, body {
-            @apply m-0 min-h-screen;
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
         }
+        100% {
+            opacity: 1;
+        }
+    }
 
-        form p {
-            @apply flex items-center mb-4;
-        }
+    html, body {
+        @apply m-0 min-h-screen;
+    }
 
-        label, input {
-            @apply inline-block;
-        }
+    form p {
+        @apply flex items-center mb-4;
+    }
 
-        form p label {
-            @apply w-28;
-        }
+    label, input {
+        @apply inline-block;
+    }
 
-        label {
-            @apply my-1;
-        }
+    form p label {
+        @apply w-28;
+    }
 
-        input, textarea {
-            @apply w-full rounded-lg p-4 bg-blue-50;
-        }
+    label {
+        @apply my-1;
+    }
 
-        input[type="file"], select {
-            @apply bg-white pl-0;
-        }
+    input, textarea {
+        @apply w-full rounded-lg p-4 bg-blue-50;
+    }
 
-        label[for="id_remember"] {
-            @apply w-auto mr-2;
-        }
+    input[type="file"], select {
+        @apply bg-white pl-0;
+    }
 
-        input[name="remember"] {
-            @apply w-auto;
-        }
+    label[for="id_remember"] {
+        @apply w-auto mr-2;
+    }
 
-        .btn-red {
-            @apply inline-flex bg-red-500;
-        }
+    input[name="remember"] {
+        @apply w-auto;
+    }
 
-        .btn-red:hover {
-            @apply bg-red-600;
-        }
+    .btn-red {
+        @apply inline-flex bg-red-500;
+    }
 
-        .login .secondaryAction {
-            @apply shadow-none block p-0 border-none text-sm font-normal mb-6;
-        }
+    .btn-red:hover {
+        @apply bg-red-600;
+    }
 
-        .login .secondaryAction:hover {
-            @apply text-gray-500 underline bg-white;
-        }
+    .login .secondaryAction {
+        @apply shadow-none block p-0 border-none text-sm font-normal mb-6;
+    }
 
-        #id_tags {
-            @apply mb-4;
-        }
+    .login .secondaryAction:hover {
+        @apply text-gray-500 underline bg-white;
+    }
 
-        #id_tags div {
-            @apply inline-block mr-2;
-        }
+    #id_tags {
+        @apply mb-4;
+    }
 
-        #id_tags div label {
-            @apply rounded-full px-4 py-2 border border-gray-300 cursor-pointer select-none;
-        }
+    #id_tags div {
+        @apply inline-block mr-2;
+    }
 
-        #id_tags input {
-            @apply hidden;
-        }
+    #id_tags div label {
+        @apply rounded-full px-4 py-2 border border-gray-300 cursor-pointer select-none;
+    }
 
-        #id_tags label:has(input:checked) {
-            @apply bg-black text-white border-black;
-        }
+    #id_tags input {
+        @apply hidden;
+    }
 
-        .textarea, textarea {
-            @apply mb-4;
-        }
+    #id_tags label:has(input:checked) {
+        @apply bg-black text-white border-black;
+    }
 
-        .errorlist li {
-            @apply text-red-500 p-2 pl-4 border-l-4 border-red-500 mb-4;
-        }
+    .textarea, textarea {
+        @apply mb-4;
+    }
 
-        .tab {
-            @apply cursor-pointer px-4 py-2 text-gray-600 bg-gray-100 rounded-lg text-center flex items-center;
-        }
+    .errorlist li {
+        @apply text-red-500 p-2 pl-4 border-l-4 border-red-500 mb-4;
+    }
 
-        .tab:hover {
-            @apply bg-gray-200;
-        }
+    .tab {
+        @apply cursor-pointer px-4 py-2 text-gray-600 bg-gray-100 rounded-lg text-center flex items-center;
+    }
 
-        .tab.selected {
-            @apply text-white bg-black;
-        }
+    .tab:hover {
+        @apply bg-gray-200;
+    }
 
-        .replyform {
-            @apply border-t-0;
-        }
+    .tab.selected {
+        @apply text-white bg-black;
+    }
 
-        .replyform textarea, .replyform input {
-            @apply p-3 text-base mb-0 h-12;
-        }
+    .replyform {
+        @apply border-t-0;
+    }
 
-        .replyform button {
-            @apply ml-2;
-        }
+    .replyform textarea, .replyform input {
+        @apply p-3 text-base mb-0 h-12;
+    }
 
-        .fade-me-in.htmx-settling {
-            @apply opacity-0;
-        }
+    .replyform button {
+        @apply ml-2;
+    }
 
-        .fade-me-in {
-            @apply opacity-100 transition-opacity duration-1000 ease-out;
-        }
+    .fade-me-in.htmx-settling {
+        @apply opacity-0;
+    }
 
-        #profile article figure img {
-            @apply aspect-[3/2] object-cover;
-        }
+    .fade-me-in {
+        @apply opacity-100 transition-opacity duration-1000 ease-out;
+    }
 
-        #profile article p {
-            @apply truncate leading-normal;
-        }
-    </style>
-</head>
+    #profile article figure img {
+        @apply aspect-[3/2] object-cover;
+    }
+
+    #profile article p {
+        @apply truncate leading-normal;
+    }
+</style>
