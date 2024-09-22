@@ -1,4 +1,5 @@
 from django.shortcuts import get_object_or_404, redirect, render
+from django.core.paginator import Paginator
 
 from .models import News, Review
 
@@ -7,9 +8,12 @@ from .models import News, Review
 
 def home_view(request):
     news_list = News.objects.all()
+    paginator = Paginator(news_list, 1)
 
-    return render(request, "index.html", context={"news_list": news_list})
+    page_number = request.GET.get('page')
+    news_page = paginator.get_page(page_number)
 
+    return render(request, "index.html", context={"news_list": news_page})
 
 def post_page_view(request, slug):
     post = get_object_or_404(News, slug=slug)
