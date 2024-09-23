@@ -3,12 +3,11 @@ from django.core.paginator import Paginator
 
 from .models import News, Review
 
-# Create your views here.
 
 
 def home_view(request):
     news_list = News.objects.all()
-    paginator = Paginator(news_list, 1)
+    paginator = Paginator(news_list, 20)
 
     page_number = request.GET.get('page')
     news_page = paginator.get_page(page_number)
