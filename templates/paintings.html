@@ -9,7 +9,6 @@
 <body class="bg-gray-100">
 
 {% include 'includes/header.html' %}
-
 {% include 'includes/hero.html' %}
 
 <content x-data="{ mobileSidebarOpen: false }" class="max-w-7xl mx-auto my-6 px-6">
@@ -30,8 +29,45 @@
             </article>
             {% endfor %}
         </div>
+
+        <!-- Кнопка "Загрузить еще" -->
+        <div class="text-center mt-2">
+            {% if paintings.has_next %}
+            <button id="load-more" class="bg-gray-800 bg-opacity-80 hover:bg-gray-800 text-white px-6 py-3 text-lg rounded w-72">
+                Загрузить еще
+            </button>
+            {% endif %}
+        </div>
     </main>
 </content>
+
+<script>
+    let page = 1;
+
+    document.getElementById('load-more')?.addEventListener('click', function() {
+        page++;
+
+        fetch(`?page=${page}`)
+            .then(response => response.text())
+            .then(data => {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(data, 'text/html');
+                const newPaintings = doc.querySelectorAll('.card'); // Получаем новые картины
+
+                newPaintings.forEach(painting => {
+                    document.querySelector('main .grid').appendChild(painting); // Добавляем новые картины в основной контент
+                });
+
+                // Проверяем, есть ли следующая кнопка "Загрузить еще"
+                const loadMoreButton = doc.querySelector('#load-more');
+                if (!loadMoreButton) {
+                    // Если кнопки больше нет, скрываем текущую кнопку
+                    document.getElementById('load-more').style.display = 'none';
+                }
+            })
+            .catch(error => console.error('Ошибка:', error));
+    });
+</script>
 
 </body>
 </html>

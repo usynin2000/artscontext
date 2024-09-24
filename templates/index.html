@@ -35,7 +35,7 @@
         }
 
         .swiper-pagination-bullet-active {
-            background: rgba(0, 0, 0, 0.8); 
+            background: rgba(0, 0, 0, 0.8);
         }
 
         .swiper-slide {
@@ -53,7 +53,7 @@
             max-height: 500px;
             width: 100%;
             overflow: hidden;
-            position: relative; 
+            position: relative;
         }
 
         .image {
@@ -77,16 +77,14 @@
         }
     </style>
     {% include 'includes/head.html' %}
-
 </head>
 <body class="bg-gray-100">
 
 {% include 'includes/header.html' %}
-
 {% include 'includes/hero.html' %}
 
 <content x-data="{ mobileSidebarOpen: false }" class="grid grid-cols-3 max-w-7xl mx-auto my-6 px-6">
-    <mobileSidebarNav class="md:hidden col-span-full mx-auto mb-6 z-10 relative">
+     <mobileSidebarNav class="md:hidden col-span-full mx-auto mb-6 z-10 relative">
         <a @click="mobileSidebarOpen = !mobileSidebarOpen"
            class="flex items-center cursor-pointer select-none font-bold hover:bg-gray-200 rounded-lg p-3">
             <span>Наши социальные сети</span>
@@ -94,35 +92,59 @@
                  src="https://img.icons8.com/small/32/000000/expand-arrow.png"/>
         </a>
     </mobileSidebarNav>
+         {% include 'includes/sidebar.html' %}
+
+
     <main class="col-span-full md:col-span-2 md:mr-[5%] lg:mx-[10%] order-2 md:order-1">
         {% if news_list %}
         {% for news in news_list %}
         {% include 'includes/news.html' %}
         {% endfor %}
+
+        {% if news_list.has_next %}
+        <button id="load-more" class="mt-4 mb-2 bg-blue-500 text-white px-4 py-2 rounded">
+            Загрузить еще
+        </button>
+        {% endif %}
         {% endif %}
     </main>
-
-    {% include 'includes/sidebar.html' %}
 
 </content>
 
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script>
-    document.querySelectorAll('.swiper-container').forEach(function (swiperEl) {
-        new Swiper(swiperEl, {
-            loop: true,
-            navigation: {
-                nextEl: swiperEl.querySelector('.swiper-button-next'),
-                prevEl: swiperEl.querySelector('.swiper-button-prev'),
-            },
-            pagination: {
-                el: swiperEl.querySelector('.swiper-pagination'),
-                clickable: true,
-            },
-            spaceBetween: 0,
-            centeredSlides: false,
-            slidesPerView: 1,
-        });
+    let page = 1; // Начинаем с первой страницы
+
+    document.addEventListener('click', function (event) {
+        if (event.target && event.target.id === 'load-more') {
+            // Скрываем текущую кнопку "Загрузить еще"
+            event.target.style.display = 'none';
+
+            page++; // Увеличиваем номер страницы
+
+            fetch(`?page=${page}`)
+                .then(response => response.text())
+                .then(data => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(data, 'text/html');
+                    const newPosts = doc.querySelectorAll('.card'); // Получаем новые посты
+
+                    newPosts.forEach(post => {
+                        document.querySelector('main').appendChild(post); // Добавляем новые посты в основной контент
+                    });
+
+                    // Проверяем, есть ли следующая кнопка "Загрузить еще"
+                    const loadMoreButton = doc.querySelector('#load-more');
+                    if (!loadMoreButton) {
+                        // Если кнопки больше нет, скрываем текущую кнопку
+                        document.getElementById('load-more').style.display = 'none';
+                    } else {
+                        // Если кнопка существует, добавляем её в основной контент
+                        document.querySelector('main').appendChild(loadMoreButton);
+                    }
+                })
+                .catch(error => console.error('Ошибка:', error));
+        }
     });
 </script>
 
