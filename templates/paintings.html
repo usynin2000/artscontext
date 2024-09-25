@@ -30,7 +30,6 @@
             {% endfor %}
         </div>
 
-        <!-- Кнопка "Загрузить еще" -->
         <div class="text-center mt-2">
             {% if paintings.has_next %}
             <button id="load-more" class="bg-gray-800 bg-opacity-80 hover:bg-gray-800 text-white px-6 py-3 text-lg rounded w-72">
@@ -52,16 +51,14 @@
             .then(data => {
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(data, 'text/html');
-                const newPaintings = doc.querySelectorAll('.card'); // Получаем новые картины
+                const newPaintings = doc.querySelectorAll('.card');
 
                 newPaintings.forEach(painting => {
-                    document.querySelector('main .grid').appendChild(painting); // Добавляем новые картины в основной контент
+                    document.querySelector('main .grid').appendChild(painting);
                 });
 
-                // Проверяем, есть ли следующая кнопка "Загрузить еще"
                 const loadMoreButton = doc.querySelector('#load-more');
                 if (!loadMoreButton) {
-                    // Если кнопки больше нет, скрываем текущую кнопку
                     document.getElementById('load-more').style.display = 'none';
                 }
             })

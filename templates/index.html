@@ -113,33 +113,29 @@
 
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script>
-    let page = 1; // Начинаем с первой страницы
+    let page = 1;
 
     document.addEventListener('click', function (event) {
         if (event.target && event.target.id === 'load-more') {
-            // Скрываем текущую кнопку "Загрузить еще"
             event.target.style.display = 'none';
 
-            page++; // Увеличиваем номер страницы
+            page++;
 
             fetch(`?page=${page}`)
                 .then(response => response.text())
                 .then(data => {
                     const parser = new DOMParser();
                     const doc = parser.parseFromString(data, 'text/html');
-                    const newPosts = doc.querySelectorAll('.card'); // Получаем новые посты
+                    const newPosts = doc.querySelectorAll('.card');
 
                     newPosts.forEach(post => {
-                        document.querySelector('main').appendChild(post); // Добавляем новые посты в основной контент
+                        document.querySelector('main').appendChild(post);
                     });
 
-                    // Проверяем, есть ли следующая кнопка "Загрузить еще"
                     const loadMoreButton = doc.querySelector('#load-more');
                     if (!loadMoreButton) {
-                        // Если кнопки больше нет, скрываем текущую кнопку
                         document.getElementById('load-more').style.display = 'none';
                     } else {
-                        // Если кнопка существует, добавляем её в основной контент
                         document.querySelector('main').appendChild(loadMoreButton);
                     }
                 })

@@ -83,7 +83,6 @@
 <div class="flex flex-col items-center md:p-2 bg-gray-100 min-h-screen">
     <article class="w-full h-full flex justify-center">
         <div class="w-full md:max-w-3xl h-full bg-white md:p-4 shadow-lg rounded-lg">
-            <!-- Swiper -->
             <div class="swiper-container ">
                 <div class="swiper-wrapper">
                     {% for image in post.image_fields %}
@@ -135,10 +134,8 @@
     </div>
 </div>
 
-<!-- Подключение Swiper.js -->
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script>
-    // Инициализация Swiper
     var swiper = new Swiper('.swiper-container', {
         loop: true,
         navigation: {
@@ -181,7 +178,6 @@
         });
     }
 
-    // Логика возврата на предыдущую страницу
     function goBack() {
         window.history.back();
     }
