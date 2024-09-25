@@ -5,12 +5,14 @@ from django.core.exceptions import ImproperlyConfigured
 
 load_dotenv()
 
+
 def get_env_variable(var_name):
     """Get the environment variable or return exception."""
     value = os.getenv(var_name)
     if value is None:
         raise ImproperlyConfigured(f"Set the {var_name} environment variable.")
     return value
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -113,8 +115,12 @@ INSTALLED_APPS += [
 
 # Настройки для Yandex Object Storage
 AWS_ACCESS_KEY_ID = get_env_variable("YANDEX_ACCESS_KEY_ID")  # Ваш Yandex Access Key
-AWS_SECRET_ACCESS_KEY = get_env_variable("YANDEX_SECRET_ACCESS_KEY")  # Ваш Yandex Secret Key
-AWS_STORAGE_BUCKET_NAME = get_env_variable("YANDEX_BUCKET_NAME")  # Имя вашего Yandex бакета
+AWS_SECRET_ACCESS_KEY = get_env_variable(
+    "YANDEX_SECRET_ACCESS_KEY"
+)  # Ваш Yandex Secret Key
+AWS_STORAGE_BUCKET_NAME = get_env_variable(
+    "YANDEX_BUCKET_NAME"
+)  # Имя вашего Yandex бакета
 AWS_S3_ENDPOINT_URL = (
     "https://storage.yandexcloud.net"  # Endpoint для Yandex Object Storage
 )
