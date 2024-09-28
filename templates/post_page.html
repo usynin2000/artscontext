@@ -14,12 +14,12 @@
             background-color: rgba(0, 0, 0, 0.5);
             padding: 20px;
             border-radius: 50%;
-            display: none;
+            display: none; /* По умолчанию скрыты */
         }
 
         .swiper-container:hover .swiper-button-next,
         .swiper-container:hover .swiper-button-prev {
-            display: block;
+            display: block; /* Показывать при наведении */
         }
 
         .swiper-pagination {
@@ -76,27 +76,27 @@
         }
     </style>
     {% include 'includes/head.html' %}
-
 </head>
 <body>
 {% include 'includes/header.html' %}
 <div class="flex flex-col items-center md:p-2 bg-gray-100 min-h-screen">
     <article class="w-full h-full flex justify-center">
         <div class="w-full md:max-w-3xl h-full bg-white md:p-4 shadow-lg rounded-lg">
-            <div class="swiper-container ">
+            <div class="swiper-container">
                 <div class="swiper-wrapper">
                     {% for image in post.image_fields %}
                     <div class="swiper-slide">
                         <div class="image-container">
-                            <img src="{{ image.url }}"
-                                 alt="{{ post.title }}" class="image rounded-lg">
+                            <img src="{{ image.url }}" alt="{{ post.title }}" class="image rounded-lg">
                         </div>
                     </div>
                     {% endfor %}
                 </div>
                 <div class="swiper-pagination"></div>
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
+                {% if post.image_fields|length > 1 %}
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                {% endif %}
             </div>
             <div class="caption text-lg text-slate-700 text-left">
                 <h3>{{ post.title }} </h3>
@@ -116,15 +116,15 @@
     <div x-data="{ mobileSidebarOpen: false }" class="md:hidden w-full bg-white">
         <div class="flex justify-center mb-6 z-10 relative">
             <a
-                    @click="mobileSidebarOpen = !mobileSidebarOpen"
-                    class="flex items-center cursor-pointer select-none font-bold hover:bg-gray-200 rounded-lg p-3"
+                @click="mobileSidebarOpen = !mobileSidebarOpen"
+                class="flex items-center cursor-pointer select-none font-bold hover:bg-gray-200 rounded-lg p-3"
             >
                 <span>Наши социальные сети</span>
                 <img
-                        x-bind:class="mobileSidebarOpen && 'rotate-180 duration-300'"
-                        class="w-4 ml-1.5"
-                        src="https://img.icons8.com/small/32/000000/expand-arrow.png"
-                        alt="Art's Context"
+                    x-bind:class="mobileSidebarOpen && 'rotate-180 duration-300'"
+                    class="w-4 ml-1.5"
+                    src="https://img.icons8.com/small/32/000000/expand-arrow.png"
+                    alt="Art's Context"
                 />
             </a>
         </div>
