@@ -15,12 +15,12 @@
             background-color: rgba(0, 0, 0, 0.5);
             padding: 20px;
             border-radius: 50%;
-            display: none;
+            display: none; /* Скрываем стрелки по умолчанию */
         }
 
         .swiper-container:hover .swiper-button-next,
         .swiper-container:hover .swiper-button-prev {
-            display: block;
+            display: block; /* Показываем стрелки при наведении */
         }
 
         .swiper-pagination {
@@ -94,11 +94,44 @@
     </mobileSidebarNav>
          {% include 'includes/sidebar.html' %}
 
-
     <main class="col-span-full md:col-span-2 md:mr-[5%] lg:mx-[10%] order-2 md:order-1">
         {% if news_list %}
         {% for news in news_list %}
-        {% include 'includes/news.html' %}
+        <article class="card bg-white shadow-lg rounded-lg mb-6">
+            <div class="p-4 pb-1">
+                <h3 class="text-lg font-semibold mb-2">{{ news.title }}</h3>
+                <div class="swiper-container mb-2">
+                    <div class="swiper-wrapper">
+                        {% for image in news.image_fields %}
+                        <div class="swiper-slide">
+                            <div class="image-container">
+                                <a href="{% url 'post-page' news.slug %}">
+                                    <img src="{{ image.url }}" alt="{{ news.title }}" class="image rounded-lg">
+                                </a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="swiper-pagination"></div>
+                    {% if news.image_fields|length > 1 %}
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                    {% endif %}
+                </div>
+                <p class="text-md text-gray-600 mb-4">{{ news.description }}</p>
+                <div class="text-right text-slate-400">
+                    <p>{{ news.created_at|date:"d F Y" }}</p>
+                </div>
+                {% if news.tags.exists %}
+                <div class="flex items-center gap-2 text-sm mb-5 flex-wrap">
+                    {% for tag in news.tags.all %}
+                    <a href="{% url 'tag-page' tag.slug %}"
+                       class="bg-gray-200 rounded-full px-3 py-1 hover:bg-gray-800 hover:text-white">{{ tag.name }}</a>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+        </article>
         {% endfor %}
 
         {% if news_list.has_next %}
@@ -108,11 +141,31 @@
         {% endif %}
         {% endif %}
     </main>
-
 </content>
 
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.swiper-container').forEach(function(container) {
+            const swiperSlides = container.querySelectorAll('.swiper-slide');
+            const hasMultipleSlides = swiperSlides.length > 1;
+
+            const swiper = new Swiper(container, {
+                slidesPerView: 1,
+                spaceBetween: 10,
+                loop: hasMultipleSlides,
+                navigation: hasMultipleSlides ? {
+                    nextEl: container.querySelector('.swiper-button-next'),
+                    prevEl: container.querySelector('.swiper-button-prev'),
+                } : false,
+                pagination: {
+                    el: container.querySelector('.swiper-pagination'),
+                    clickable: true,
+                },
+            });
+        });
+    });
+
     let page = 1;
 
     document.addEventListener('click', function (event) {
@@ -138,6 +191,25 @@
                     } else {
                         document.querySelector('main').appendChild(loadMoreButton);
                     }
+
+                    document.querySelectorAll('.swiper-container').forEach(function(container) {
+                        const swiperSlides = container.querySelectorAll('.swiper-slide');
+                        const hasMultipleSlides = swiperSlides.length > 1;
+
+                        new Swiper(container, {
+                            slidesPerView: 1,
+                            spaceBetween: 10,
+                            loop: hasMultipleSlides,
+                            navigation: hasMultipleSlides ? {
+                                nextEl: container.querySelector('.swiper-button-next'),
+                                prevEl: container.querySelector('.swiper-button-prev'),
+                            } : false,
+                            pagination: {
+                                el: container.querySelector('.swiper-pagination'),
+                                clickable: true,
+                            },
+                        });
+                    });
                 })
                 .catch(error => console.error('Ошибка:', error));
         }
